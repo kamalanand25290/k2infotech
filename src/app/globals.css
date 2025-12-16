@@ -1,0 +1,312 @@
+@import "tailwindcss";
+
+/* --------------------------------------------------
+   LIGHT MODE DEFAULT VARIABLES
+-------------------------------------------------- */
+:root {
+  /* Backgrounds */
+  --background: #ffffff;
+  --foreground: #171717;
+  --x-dark-bg: #f1f1f1;
+
+  /* Alternate section backgrounds (light mode) */
+  --section-alt-1: #f8fafc;  /* light bluish neutral */
+  --section-alt-2: #eef1f5;  /* soft grey */
+
+  /* Typography */
+  --text-heading: #111111;
+  --text-body: #222222;
+  --text-paragraph: #333333;
+
+  /* Borders */
+  --border-color: #e5e7eb;
+
+  /* Fonts */
+  --font-base: "Inter Tight", Arial, sans-serif;
+
+  scroll-padding-top: 70px; /* equal to your header height */
+
+  --text-heading-1: 4.25rem;
+  --text-heading-1--line-height: 110%;
+  --text-heading-2: 3.25rem;
+  --text-heading-2--line-height: 120%;
+  --text-heading-3: 2.5rem;
+  --text-heading-3--line-height: 120%;
+  --text-heading-4: 2rem;
+  --text-heading-4--line-height: 130%;
+  --text-heading-5: 1.6rem;
+  --text-heading-5--line-height: 148%;
+  --text-heading-6: 1.25rem;
+  --text-heading-6--line-height: 140%;
+  --text-tagline-1: 1rem;
+  --text-tagline-1--line-height: 150%;
+  --text-tagline-2: .875rem;
+  --text-tagline-2--line-height: 150%;
+  --text-tagline-3: .75rem;
+  --text-tagline-3--line-height: 150%;
+
+  --font-weight-light: 300;
+  --font-weight-normal: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+}
+
+/* --------------------------------------------------
+   DARK MODE OVERRIDES
+   Applied when <html data-theme="dark">
+-------------------------------------------------- */
+html[data-theme="dark"] {
+  /* Backgrounds */
+  --background: #202833;
+  --foreground: #ffffff;
+  --x-dark-bg: #121212;
+
+  /* Alternating dark sections */
+  --section-alt-1: #13171e;
+  --section-alt-2: #181d26;
+
+  /* Typography */
+  --text-heading: #ffffff;
+  --text-body: #ffffff;
+  --text-paragraph: #fcfcfc;
+
+  /* Border color */
+  --border-color: #2a2f36;
+}
+
+/* --------------------------------------------------
+   GLOBAL BODY STYLES
+-------------------------------------------------- */
+html {
+  scroll-behavior: smooth;
+}
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-base);
+  transition: background 0.25s ease, color 0.25s ease;
+}
+
+/* --------------------------------------------------
+   TYPOGRAPHY
+-------------------------------------------------- */
+h1, h2, h3, h4, h5, h6 {
+  color: var(--text-heading);
+  font-weight: normal;
+}
+
+p {
+  color: var(--text-paragraph);
+  line-height: 1.65;
+  margin-bottom: 1rem;
+}
+
+a:not(header a) {
+  color: var(--text-heading);
+  text-decoration: none;
+  font-weight: var(--font-weight-medium);
+}
+a:hover {
+  opacity: 0.8;
+}
+
+  h1 {
+    font-size: var(--text-heading-4);
+    line-height: var(--tw-leading, var(--text-heading-4--line-height));
+    --tw-font-weight: var(--font-weight-medium);
+    font-weight: var(--font-weight-medium);
+  }
+
+  @media (min-width: 40rem) {
+    h1 {
+      font-size: var(--text-heading-3);
+      line-height: var(--tw-leading, var(--text-heading-3--line-height));
+    }
+  }
+
+  @media (min-width: 48rem) {
+    h1 {
+      font-size: var(--text-heading-2);
+      line-height: var(--tw-leading, var(--text-heading-2--line-height));
+    }
+  }
+
+  @media (min-width: 80rem) {
+    h1 {
+      font-size: var(--text-heading-1);
+      line-height: var(--tw-leading, var(--text-heading-1--line-height));
+    }
+  }
+
+  h2 {
+    font-size: var(--text-heading-5);
+    line-height: var(--tw-leading, var(--text-heading-5--line-height));
+  }
+
+  @media (min-width: 40rem) {
+    h2 {
+      font-size: var(--text-heading-4);
+      line-height: var(--tw-leading, var(--text-heading-4--line-height));
+    }
+  }
+
+  @media (min-width: 48rem) {
+    h2 {
+      font-size: var(--text-heading-3);
+      line-height: var(--tw-leading, var(--text-heading-3--line-height));
+    }
+  }
+
+  @media (min-width: 80rem) {
+    h2 {
+      font-size: var(--text-heading-2);
+      line-height: var(--tw-leading, var(--text-heading-2--line-height));
+    }
+  }
+
+  h3 {
+    font-size: var(--text-heading-5);
+    line-height: var(--tw-leading, var(--text-heading-5--line-height));
+  }
+
+  @media (min-width: 48rem) {
+    h3 {
+      font-size: var(--text-heading-4);
+      line-height: var(--tw-leading, var(--text-heading-4--line-height));
+    }
+  }
+
+  @media (min-width: 80rem) {
+    h3 {
+      font-size: var(--text-heading-3);
+      line-height: var(--tw-leading, var(--text-heading-3--line-height));
+    }
+  }
+
+  h4 {
+    font-size: var(--text-heading-2);
+    line-height: var(--tw-leading, var(--text-heading-4--line-height));
+  }
+  @media (min-width: 48rem) {
+    h4 {
+      font-size: var(--text-heading-3);
+      line-height: var(--tw-leading, var(--text-heading-4--line-height));
+    }
+  }
+
+  @media (min-width: 80rem) {
+    h4 {
+      font-size: var(--text-heading-4);
+      line-height: var(--tw-leading, var(--text-heading-3--line-height));
+    }
+  }
+
+  h5 {
+    font-size: var(--text-heading-6);
+    line-height: var(--tw-leading, var(--text-heading-5--line-height));
+  }
+
+  @media (min-width: 80rem) {
+    h5 {
+      font-size: var(--text-heading-5);
+      line-height: var(--tw-leading, var(--text-heading-3--line-height));
+    }
+  }
+
+  h6 {
+    font-size: var(--text-heading-6);
+    line-height: var(--tw-leading, var(--text-heading-6--line-height));
+  }
+
+  p {
+    font-size: var(--text-tagline-1);
+    line-height: var(--tw-leading, var(--text-tagline-1--line-height));
+    --tw-font-weight: var(--font-weight-normal);
+    font-weight: var(--font-weight-normal);
+    color: #1a1a1c99;
+  }
+
+  @media (min-width: 80rem) {
+    p {
+      font-size: var(--text-tagline-2);
+    line-height: var(--tw-leading, var(--text-tagline-2--line-height));
+    }
+  }
+
+  @supports (color: color-mix(in lab, red, red)) {
+    p {
+      color: color-mix(in oklab, var(--color-secondary) 60%, transparent);
+    }
+  }
+
+  @media (min-width: 40rem) {
+    p {
+      font-size: var(--text-tagline-1);
+      line-height: var(--tw-leading, var(--text-tagline-1--line-height));
+    }
+  }
+
+/* --------------------------------------------------
+   SECTION HELPERS (for alternating backgrounds)
+-------------------------------------------------- */
+section{
+  padding: 70px 20px;
+  text-align: center;
+}
+section:nth-child(2n+1) {
+  background: var(--section-alt-1);
+}
+
+section:nth-child(2n) {
+  background: var(--section-alt-2);
+}
+
+/* Optional: Card / border */
+.border-default {
+  border: 1px solid var(--border-color);
+}
+
+.dark-bg{
+  background: var(--background);
+}
+.dark-fill{
+  fill: var(--x-dark-bg);
+}
+.light-fill{
+  fill: var(--foreground);
+}
+
+.x-dark-bg{
+  background: var(--x-dark-bg);
+}
+
+.opposite-bg{
+  background: var(--foreground);
+  color: var(--background);
+}
+
+.swiper-button-next,
+.swiper-button-prev {
+  background: #000000;
+    padding: 10px;
+}
+.swiper.swiper-coverflow .swiper-slide{
+  width: 40%;
+  height: auto 
+}
+
+@media (max-width: 767px) {
+  section{
+    padding: 45px 13px;
+    text-align: center;
+  }
+  .swiper-button-next,
+  .swiper-button-prev {
+    display: none !important;
+  }
+  .swiper.swiper-coverflow .swiper-slide{
+    width: 80%;
+    height: auto 
+  }
+}
