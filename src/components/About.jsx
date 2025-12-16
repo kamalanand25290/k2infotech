@@ -2,7 +2,7 @@ export default function About() {
   return (
     <section className="" id="about">
       <div className="max-w-7xl mx-auto">
-        <h2 className="">About Us</h2>
+        <h2 className="">About K2Infortech</h2>
           <div className="text-left mt-7 md:mt-10">
             <figure className="overflow-hidden mx-auto md:w-[300px] md:float-left md:mr-6 mb-4">
               <img src="../../our-mission.png" className="object-cover size-full" alt="Team Image"/>
