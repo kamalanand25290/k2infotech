@@ -55,7 +55,7 @@ export default function Header() {
       <div className="dark-bg max-w-7xl mx-auto px-4 py-2 md:px-6 md:py-4 flex items-center gap-20 justify-between border border-gray-600 rounded-full mt-2 sm:mt-4">
         {/* Logo */}
         <div className="text-2xl font-bold">
-          <a href="/">Webora Labs</a>
+          <a href="/">K2Infortech</a>
         </div>
 
         {/* Desktop Menu */}
