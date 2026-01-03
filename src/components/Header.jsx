@@ -51,11 +51,11 @@ export default function Header() {
     }`;
 
   return (
-    <header className="z-99 fixed left-1/2 -translate-x-1/2 w-full lg:max-w-7xl rounded-bl-[35px] rounded-br-[35px] px-3">
-      <div className="dark-bg max-w-7xl mx-auto px-4 py-2 md:px-6 md:py-4 flex items-center gap-20 justify-between border border-gray-600 rounded-full mt-2 sm:mt-4">
+    <header className="dark-bg z-99 fixed left-1/2 -translate-x-1/2 w-full  px-3">
+      <div className="max-w-7xl mx-auto px-4 py-2 md:px-6 md:py-4 flex items-center gap-20 justify-between">
         {/* Logo */}
         <div className="text-2xl font-bold">
-          <a href="/">K2Infortech</a>
+          <a href="/"><img src="../k2infotech.png" alt="Logo" className="h-16" /></a>
         </div>
 
         {/* Desktop Menu */}
