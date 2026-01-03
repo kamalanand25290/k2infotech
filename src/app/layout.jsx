@@ -1,4 +1,5 @@
 //import "./globals.css?v=1.0.6";
+import PasswordGate from "@/components/PasswordGate";
 import { Inter_Tight } from "next/font/google";
 
 const interTight = Inter_Tight({
@@ -17,7 +18,7 @@ export default function RootLayout({ children }) {
       <body
         className={`${interTight.variable} antialiased`}
       >
-        {children}
+        <PasswordGate>{children}</PasswordGate>
       </body>
     </html>
   );
