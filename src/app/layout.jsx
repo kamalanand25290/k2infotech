@@ -1,4 +1,4 @@
-import "./globals.css?v=1.0.6";
+//import "./globals.css?v=1.0.6";
 import { Inter_Tight } from "next/font/google";
 
 const interTight = Inter_Tight({
