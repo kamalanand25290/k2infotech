@@ -4,8 +4,11 @@
 import { toWords } from "number-to-words";
 import { useState } from "react";
 
-
 export default function GenerateBill() {
+const handleLogout = () => {
+  sessionStorage.removeItem("site_auth");
+  window.location.reload();
+};
 
 const formatDate = () => {
   return new Date().toLocaleDateString("en-US", {
@@ -475,6 +478,18 @@ const [formData, setFormData] = useState({
 
       >
         Download PDF
+      </button>
+      <button
+        onClick={handleLogout}
+        style={{
+          position: "fixed",
+          bottom: 20,
+          right: 20,
+          padding: "6px 12px",
+          cursor: "pointer",
+        }}
+      >
+        Logout
       </button>
     </>
   );
