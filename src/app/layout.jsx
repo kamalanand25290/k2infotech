@@ -8,8 +8,8 @@ const interTight = Inter_Tight({
 });
 
 export const metadata = {
-  title: "Webora Lab | Web & App Development Company",
-  description: "Webora Lab is a modern web and app development company delivering fast, responsive, and scalable digital solutions using modern technologies.",
+  title: "Personal Billing Tool",
+  description: "Personal Billing Tool for generating bills quickly and easily",
 };
 
 export default function RootLayout({ children }) {
