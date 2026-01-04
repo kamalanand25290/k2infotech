@@ -66,7 +66,7 @@ const [formData, setFormData] = useState({
           scrollY: 0,
           scrollX: 0,
           windowWidth: document.body.scrollWidth,
-          scale: 1
+          scale: 2
         },
         jsPDF: { unit: "mm", format: "a4", orientation: "portrait" }
       })
@@ -140,7 +140,7 @@ const [formData, setFormData] = useState({
       background: #f2effb;
       padding: 15px;
       border-radius: 6px;
-      font-size: 14px;
+      font-size: 13px;
     }
 
     .box h3 {
@@ -332,7 +332,7 @@ const [formData, setFormData] = useState({
             <div className="box">
               <h3>Billed By</h3>
               <div style={{lineHeight: '20px', marginBottom: '10px'}}>
-                <b>Arun Rajput</b><br />
+                <b>Arun Thakur</b><br />
                 Punjab, India<br />
                 <b>PAN:</b> BIBPA8517L
               </div>
