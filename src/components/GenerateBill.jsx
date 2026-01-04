@@ -20,6 +20,7 @@ const formatDate = () => {
 const [formData, setFormData] = useState({
     invoiceNo: "2025-26/048",
     invoiceDate: formatDate(),
+    billedByLocation: "Punjab, India",
     licenseNumber:'IRDA/IND/SLA-123899 Valid up to 03-06-2028',
     insuredName: "MR. MANDEEP SINGH",
     regNo: "PB-10-HN-2519",
@@ -268,6 +269,9 @@ const [formData, setFormData] = useState({
 <h4>Invoice No</h4>
         <input name="invoiceNo" placeholder="Invoice No"
           value={formData.invoiceNo} onChange={handleChange} />
+          <h4>Billed By</h4>
+        <input name="billedByLocation" placeholder="Billed By Location"
+          value={formData.billedByLocation} onChange={handleChange} />
 <h4>Claim Details</h4>
         <input name="insuredName" placeholder="Insured Name"
           onChange={handleChange} /><br/>
@@ -332,8 +336,8 @@ const [formData, setFormData] = useState({
             <div className="box">
               <h3>Billed By</h3>
               <div style={{lineHeight: '20px', marginBottom: '10px'}}>
-                <b>Arun Thakur</b><br />
-                Punjab, India<br />
+                <b>Arun Rajput</b><br />
+                {formData.billedByLocation}<br />
                 <b>PAN:</b> BIBPA8517L
               </div>
 
