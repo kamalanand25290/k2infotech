@@ -10,16 +10,16 @@ const handleLogout = () => {
   window.location.reload();
 };
 
-const formatDate = () => {
-  return new Date().toLocaleDateString("en-US", {
+const formatDate = (date) => {
+  return new Date(date).toLocaleDateString("en-US", {
     month: "short",
     day: "2-digit",
     year: "numeric",
   });
 };    
 const [formData, setFormData] = useState({
-    invoiceNo: "2025-26/048",
-    invoiceDate: formatDate(),
+    invoiceNo: "048",
+    invoiceDate: new Date().toISOString().split('T')[0],
     billedByLocation: "Punjab, India",
     licenseNumber:'IRDA/IND/SLA-123899 Valid up to 03-06-2028',
     insuredName: "MR. MANDEEP SINGH",
@@ -33,11 +33,11 @@ const [formData, setFormData] = useState({
     billedToGST: "03AAFCK7016C1Z3",
     billedToPAN: "AAFCK7016C",
     items: [
-      { rate: 1000, qty: 1, gst: 0 },
-      { rate: 700, qty: 1, gst: 0 },
-      { rate: 1, qty: 1, gst: 0 },
-      { rate: 100, qty: 1, gst: 0 },
-      { rate: 1, qty: 1, gst: 0 },
+      { text: 'Professional Charges', rate: 1000, qty: 1, gst: 0 },
+      { text: 'Conveyance Expenses for Local Visit', rate: 700, qty: 1, gst: 0 },
+      { text: 'Conveyance Expenses for Spot Visit', rate: 1, qty: 1, gst: 0 },
+      { text: 'Toll Tax', rate: 100, qty: 1, gst: 0 },
+      { text: 'Miscellaneous Charges / Re-inspection', rate: 1, qty: 1, gst: 0 },
     ],
   });
 
@@ -67,7 +67,7 @@ const [formData, setFormData] = useState({
           scrollY: 0,
           scrollX: 0,
           windowWidth: document.body.scrollWidth,
-          scale: 2
+          scale: 2.5
         },
         jsPDF: { unit: "mm", format: "a4", orientation: "portrait" }
       })
@@ -91,6 +91,18 @@ const [formData, setFormData] = useState({
     { amount: 0, cgst: 0, sgst: 0, grandTotal: 0 }
     );
 
+    function getFinancialYear(date = new Date()) {
+      const year = date.getFullYear();
+      const month = date.getMonth() + 1; // Jan = 1, Dec = 12
+
+      // Financial year starts in April
+      if (month >= 4) {
+        return `${year}-${String(year + 1).slice(-2)}`;
+      } else {
+        return `${year - 1}-${String(year).slice(-2)}`;
+      }
+    }
+
 
   return (
     <>
@@ -104,7 +116,17 @@ const [formData, setFormData] = useState({
     b, strong{
             font-weight: 500;
     }
-
+            fieldset{    display: flex;
+    text-wrap-mode: nowrap;
+    padding: 5px;
+    align-items: center;
+    border: 0px;
+    justify-content: space-between;
+    gap: 20px;}
+h4{
+    margin: 10px;
+    padding-top: 10px;
+    border-top: 1px solid #dedede;}
     .page {
       width: 99%;
       background: #fff;
@@ -253,81 +275,97 @@ const [formData, setFormData] = useState({
     padding-left: 0;
 }
     input{
-    padding: 5px; margin: 0 5px 5px;
-        width: 94%;
+    padding: 5px; margin: 0 0 0 5px;
+        width: 50%;
     }
     .item-rates{
-    display:flex; align-items: center; margin-bottom: 8px;
+    border-bottom: 1px solid #e8e8e8;
+    margin-bottom: 5px;
+    padding-bottom: 5px;
     }
     .item-rates input{ width: 50px; padding: 5px; margin-left: 5px; }
+    .editableFields{
+    width: calc(100vw - 860px);
+    max-height: calc(100vh - 50px);
+    overflow: auto;
+    background: #fff;
+    padding: 20px;
+    }
       `}</style>
 
 {/* ================= Editable Fields ================= */}
 <div style={{display: 'flex'}}>
-      <div className="editableFields" style={{ padding: 20, maxWidth: 750 }}>
+      <div className="editableFields">
         <h3>Invoice Inputs</h3>
 <h4>Invoice No</h4>
-        <input name="invoiceNo" placeholder="Invoice No"
-          value={formData.invoiceNo} onChange={handleChange} />
+        <fieldset>Invoice No #: <input name="invoiceNo" placeholder="Invoice No"
+          value={formData.invoiceNo} onChange={handleChange} /></fieldset>
+        <fieldset>Invoice Date: <input type="date" name="invoiceDate" placeholder="Invoice Date"
+          value={formData.invoiceDate} onChange={handleChange} /></fieldset>
           <h4>Billed By</h4>
-        <input name="billedByLocation" placeholder="Billed By Location"
-          value={formData.billedByLocation} onChange={handleChange} />
+        <fieldset>Location: <input name="billedByLocation" placeholder="Billed By Location"
+          value={formData.billedByLocation} onChange={handleChange} /></fieldset>
 <h4>Claim Details</h4>
-        <input name="insuredName" placeholder="Insured Name"
-          onChange={handleChange} /><br/>
+        <fieldset>Insured Name: <input name="insuredName" placeholder="Insured Name"
+          onChange={handleChange} value={formData.insuredName}/></fieldset>
 
-        <input name="regNo" placeholder="Registration Number"
-          onChange={handleChange} /><br/>
+        <fieldset>Registration Number: <input name="regNo" placeholder="Registration Number"
+          onChange={handleChange} value={formData.regNo}/></fieldset>
+        <fieldset>Policy Number: <input name="policyNo" placeholder="Policy Number"
+          onChange={handleChange} value={formData.policyNo}/></fieldset>
 
-        <input name="policyNo" placeholder="Policy Number"
-          onChange={handleChange} /><br/>
+        <fieldset>Claim Number: <input name="claimNo" placeholder="Claim Number"
+          onChange={handleChange} value={formData.claimNo}/></fieldset>
 
-        <input name="claimNo" placeholder="Claim Number"
-          onChange={handleChange} /><br/>
-
-        <input name="reportNo" placeholder="Report No"
-          onChange={handleChange} /><br/>
-
+        <fieldset>Report No.: <input name="reportNo" placeholder="Report No"
+          onChange={handleChange} value={formData.reportNo}/></fieldset>
        <h4>Billed To Details</h4>
-
+<fieldset>Name (or Company name):
         <input name="billedTo" placeholder="Billed To Name"
-          onChange={handleChange} /><br/>
-
+          onChange={handleChange} value={formData.billedTo}/></fieldset>
+<fieldset>Address Line 1: 
         <input name="billedToAddressLine1" placeholder="Billed To Address Line 1"
-          onChange={handleChange} /><br/>
-          <input name="billedToAddressLine2" placeholder="Billed To Address Line 2"
-          onChange={handleChange} /><br/>
-
+          onChange={handleChange} value={formData.billedToAddressLine1}/></fieldset>
+<fieldset>Address Line 2: 
+ <input name="billedToAddressLine2" placeholder="Billed To Address Line 2"
+          onChange={handleChange} value={formData.billedToAddressLine2}/></fieldset>
+<fieldset>GSTIN: 
         <input name="billedToGST" placeholder="GSTIN"
-          onChange={handleChange} /><br/>
-
+          onChange={handleChange} value={formData.billedToGST}/></fieldset>
+<fieldset>PAN: 
         <input name="billedToPAN" placeholder="PAN"
-          onChange={handleChange} /><br/>
+          onChange={handleChange} value={formData.billedToPAN}/></fieldset>
 
         <h4>Item Rates</h4>
         {formData.items.map((item, i) => (
-          <div className="item-rates" key={i}>
-            {i+1}. GST Rate: <input type="number" placeholder="GST %"
+          <div className="item-rates" key={i}>{item.text}
+            <fieldset>
+            <field>GST Rate: <input style={{ width: '30px'}} type="number" placeholder="GST %"
               value={item.gst}
-              onChange={(e) => handleChange(e, i, "gst")} />
-              &nbsp;|&nbsp;Quantity: <input type="number" placeholder="Qty"
+              onChange={(e) => handleChange(e, i, "gst")} />%
+              </field>
+              <field>Quantity: <input style={{ width: '30px'}} type="number" placeholder="Qty"
               value={item.qty}
               onChange={(e) => handleChange(e, i, "qty")} />
-            &nbsp;|&nbsp;Rate: <input type="number" placeholder="Rate"
+            </field>
+            <field>Rate: ₹<input type="number" placeholder="Rate"
               value={item.rate}
               onChange={(e) => handleChange(e, i, "rate")} />
+              </field>
+              </fieldset>
           </div>
         ))}
       </div>
         {/* ================= Invoice Preview ================= */}
-      <div style={{ width: "730px", padding: "35px", background: "#fff" }}>
+      <div style={{ width: "730px", padding: "35px", background: "#fff", maxHeight: 'calc(100vh - 70px)',
+    overflow: 'auto' }}>
         <div className="page" id="invoice">
           <h1>Surveyor Fee Bill ( Pre- Receipt)</h1>
 
           <table className="metaTable">
             <tbody>
-              <tr><td>Invoice No #:</td><td>{formData.invoiceNo}</td></tr>
-              <tr><td>Invoice Date:</td><td>{formData.invoiceDate}</td></tr>
+              <tr><td>Invoice No #:</td><td>{getFinancialYear(new Date())}/{formData.invoiceNo}</td></tr>
+              <tr><td>Invoice Date:</td><td>{formatDate(formData.invoiceDate)}</td></tr>
               <tr><td>License Number:</td><td>{formData.licenseNumber}</td></tr>
             </tbody>
           </table>
@@ -367,66 +405,38 @@ const [formData, setFormData] = useState({
             <table className="main-table">
               <thead>
                 <tr>
-                  <th></th><th>Item</th><th>GST Rate</th><th>Quantity</th>
-                  <th>Rate</th><th>Amount</th><th>CGST</th><th>SGST</th><th>Total</th>
+                  <th></th>
+                  <th>Item</th>
+                  <th>GST Rate</th>
+                  <th>Quantity</th>
+                  <th>Rate</th>
+                  <th>Amount</th>
+                  <th>CGST</th>
+                  <th>SGST</th>
+                  <th>Total</th>
                 </tr>
               </thead>
+
               <tbody>
-                <tr>
-                    <td>1</td>
-                    <td>Professional Charges</td>
-                    <td>{formData.items[0].gst}%</td>
-                    <td>{formData.items[0].qty}</td>
-                    <td>₹{Number(formData.items[0].rate).toFixed(2)}</td>
-                    <td>₹{Number(formData.items[0].rate * formData.items[0].qty).toFixed(2)}</td>
-                    <td>₹{Number(formData.items[0].rate * formData.items[0].qty*(formData.items[0].gst/2)/100).toFixed(2)}</td>
-                    <td>₹{Number(formData.items[0].rate * formData.items[0].qty*(formData.items[0].gst/2)/100).toFixed(2)}</td>
-                    <td>₹{Number(formData.items[0].rate * formData.items[0].qty + (formData.items[0].rate * formData.items[0].qty*(formData.items[0].gst/2)/100)*2).toFixed(2)}</td>
-                </tr>
-                <tr>
-                    <td>2</td>
-                    <td>Conveyance Expenses for Local Visit</td>
-                    <td>{formData.items[1].gst}%</td>
-                    <td>{formData.items[1].qty}</td>
-                    <td>₹{Number(formData.items[1].rate).toFixed(2)}</td>
-                    <td>₹{Number(formData.items[1].rate * formData.items[1].qty).toFixed(2)}</td>
-                    <td>₹{Number(formData.items[1].rate * formData.items[1].qty*(formData.items[1].gst/2)/100).toFixed(2)}</td>
-                    <td>₹{Number(formData.items[1].rate * formData.items[1].qty*(formData.items[1].gst/2)/100).toFixed(2)}</td>
-                    <td>₹{Number(formData.items[1].rate * formData.items[1].qty + (formData.items[1].rate * formData.items[1].qty*(formData.items[1].gst/2)/100)*2).toFixed(2)}</td>
-                </tr>
-                <tr>
-                    <td>3</td>
-                    <td>Conveyance Expenses for Spot Visit</td>
-                    <td>{formData.items[2].gst}%</td>
-                    <td>{formData.items[2].qty}</td>
-                    <td>₹{Number(formData.items[2].rate).toFixed(2)}</td>
-                    <td>₹{Number(formData.items[2].rate * formData.items[2].qty).toFixed(2)}</td>
-                    <td>₹{Number(formData.items[2].rate * formData.items[2].qty*(formData.items[2].gst/2)/100).toFixed(2)}</td>
-                    <td>₹{Number(formData.items[2].rate * formData.items[2].qty*(formData.items[2].gst/2)/100).toFixed(2)}</td>
-                    <td>₹{Number(formData.items[2].rate * formData.items[2].qty + (formData.items[2].rate * formData.items[2].qty*(formData.items[2].gst/2)/100)*2).toFixed(2)}</td>
-                </tr>
-                <tr>
-                    <td>4</td>
-                    <td>Toll Tax</td>
-                    <td>{formData.items[3].gst}%</td>
-                    <td>{formData.items[3].qty}</td>
-                    <td>₹{Number(formData.items[3].rate).toFixed(2)}</td>
-                    <td>₹{Number(formData.items[3].rate * formData.items[3].qty).toFixed(2)}</td>
-                    <td>₹{Number(formData.items[3].rate * formData.items[3].qty*(formData.items[3].gst/2)/100).toFixed(2)}</td>
-                    <td>₹{Number(formData.items[3].rate * formData.items[3].qty*(formData.items[3].gst/2)/100).toFixed(2)}</td>
-                    <td>₹{Number(formData.items[3].rate * formData.items[3].qty + (formData.items[3].rate * formData.items[3].qty*(formData.items[3].gst/2)/100)*2).toFixed(2)}</td>
-                </tr>
-                <tr>
-                    <td>5</td>
-                    <td>Miscellaneous Charges / Re-inspection</td>
-                    <td>{formData.items[4].gst}%</td>
-                    <td>{formData.items[4].qty}</td>
-                    <td>₹{Number(formData.items[4].rate).toFixed(2)}</td>
-                    <td>₹{Number(formData.items[4].rate * formData.items[4].qty).toFixed(2)}</td>
-                    <td>₹{Number(formData.items[4].rate * formData.items[4].qty*(formData.items[4].gst/2)/100).toFixed(2)}</td>
-                    <td>₹{Number(formData.items[4].rate * formData.items[4].qty*(formData.items[4].gst/2)/100).toFixed(2)}</td>
-                    <td>₹{Number(formData.items[4].rate * formData.items[4].qty + (formData.items[4].rate * formData.items[4].qty*(formData.items[4].gst/2)/100)*2).toFixed(2)}</td>
-                </tr>
+                {formData.items.map((item, index) => {
+                  const amount = item.rate * item.qty;
+                  const gstHalf = (amount * item.gst) / 200;
+                  const total = amount + gstHalf * 2;
+
+                  return (
+                    <tr key={index}>
+                      <td>{index + 1}</td>
+                      <td>{item.text}</td>
+                      <td>{item.gst}%</td>
+                      <td>{item.qty}</td>
+                      <td>₹{item.rate.toFixed(2)}</td>
+                      <td>₹{amount.toFixed(2)}</td>
+                      <td>₹{gstHalf.toFixed(2)}</td>
+                      <td>₹{gstHalf.toFixed(2)}</td>
+                      <td>₹{total.toFixed(2)}</td>
+                    </tr>
+                  );
+                })}
               </tbody>
             </table>
           </div>
