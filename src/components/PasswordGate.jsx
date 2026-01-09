@@ -32,6 +32,15 @@ export default function PasswordGate({ children }) {
   }
 
   return (
+    <>
+    <style>{`
+        body, input {
+      font-family: system-ui, Arial, Helvetica, sans-serif;
+      background: #f5f5f5;
+      margin: 0;
+      padding: 0;
+    }
+      `}</style>
     <div
       style={{
         minHeight: "100vh",
@@ -40,15 +49,24 @@ export default function PasswordGate({ children }) {
         justifyContent: "center",
       }}
     >
-      <div>
-        <h3>Enter Password</h3>
+      <div style={{display: "flex",
+    flexDirection: "column",
+    gap: "10px",
+    width: "300px",
+    border: "2px solid #6a35c9",
+    padding: "50px 30px",
+    borderRadius: "10px",
+    background: "#f2effb"}}>
+        <h2 style={{margin:"0 0 10px 0", color:"#6a35c9", fontWeight: "normal" }}>Enter Password</h2>
         <input
+        style={{padding:"10px 15px"}}
           type="password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
-        <button onClick={handleSubmit}>Submit</button>
+        <button style={{padding:"10px 15px"}} onClick={handleSubmit}>Login</button>
       </div>
     </div>
+    </>
   );
 }
